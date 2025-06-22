@@ -1,0 +1,10 @@
+Understanding Recursive Algorithms
+Recursion is a technique where a method calls itself to solve smaller instances of the same problem. It helps break complex problems into simpler sub-problems.
+For example, calculating factorial(n) as:
+
+int factorial(int n) {
+    if (n == 0) return 1;
+    return n * factorial(n - 1);
+}
+
+In forecasting, recursion can be used to compute future values if each value depends on the previous ones (like compound growth).
