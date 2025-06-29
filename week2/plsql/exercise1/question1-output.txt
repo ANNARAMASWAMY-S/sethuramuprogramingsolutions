@@ -1,4 +1,5 @@
-Discount applied for Customer ID: 101  
-Discount applied for Customer ID: 108  
+SET SERVEROUTPUT ON;
+EXEC ProcessMonthlyInterest;
 
+1% interest applied to Account ID: 1
 PL/SQL procedure successfully completed.
