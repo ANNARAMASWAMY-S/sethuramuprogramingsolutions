@@ -1,16 +1,18 @@
-DECLARE
-    CURSOR cur_vip IS
-        SELECT CustomerID
-        FROM Customers
-        WHERE Balance > 10000;
-
+CREATE OR REPLACE PROCEDURE UpdateEmployeeBonus (
+    deptName IN VARCHAR2,
+    bonusPercent IN NUMBER
+) IS
 BEGIN
-    FOR rec IN cur_vip LOOP
-        UPDATE Customers
-        SET IsVIP = 'Y'
-        WHERE CustomerID = rec.CustomerID;
+    FOR emp IN (
+        SELECT EmployeeID, Salary
+        FROM Employees
+        WHERE Department = deptName
+    ) LOOP
+        UPDATE Employees
+        SET Salary = Salary + (Salary * bonusPercent / 100)
+        WHERE EmployeeID = emp.EmployeeID;
 
-        DBMS_OUTPUT.PUT_LINE('VIP status updated for Customer ID: ' || rec.CustomerID);
+        DBMS_OUTPUT.PUT_LINE('Bonus applied to Employee ID: ' || emp.EmployeeID);
     END LOOP;
 END;
 /
