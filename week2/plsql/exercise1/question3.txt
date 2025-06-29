@@ -1,15 +1,21 @@
-DECLARE
-    CURSOR cur_due_loans IS
-        SELECT l.LoanID, c.Name, l.DueDate
-        FROM Loans l
-        JOIN Customers c ON l.CustomerID = c.CustomerID
-        WHERE l.DueDate <= SYSDATE + 30;
+SET SERVEROUTPUT ON;
 
+DECLARE
+    v_name Customers.Name%TYPE;
+    v_end_date Loans.EndDate%TYPE;
+    v_days_left NUMBER;
 BEGIN
-    FOR rec IN cur_due_loans LOOP
-        DBMS_OUTPUT.PUT_LINE('Reminder: Loan ID ' || rec.LoanID || 
-                             ' for customer ' || rec.Name || 
-                             ' is due on ' || TO_CHAR(rec.DueDate, 'DD-MON-YYYY'));
+    FOR loan_rec IN (
+        SELECT c.Name, l.EndDate
+        FROM Customers c
+        JOIN Loans l ON c.CustomerID = l.CustomerID
+        WHERE l.EndDate BETWEEN SYSDATE AND SYSDATE + 30
+    ) LOOP
+        v_name := loan_rec.Name;
+        v_end_date := loan_rec.EndDate;
+        v_days_left := v_end_date - SYSDATE;
+
+        DBMS_OUTPUT.PUT_LINE('Reminder: ' || v_name ||
+            '''s loan is due in ' || v_days_left || ' days on ' || TO_CHAR(v_end_date, 'YYYY-MM-DD'));
     END LOOP;
 END;
-/
