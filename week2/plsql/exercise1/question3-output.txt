@@ -1,8 +1,1 @@
-Discount applied for Customer ID: 101
-Discount applied for Customer ID: 108
-
-VIP status updated for Customer ID: 105
-VIP status updated for Customer ID: 122
-
-Reminder: Loan ID 203 for customer Ram is due on 15-JUL-2025
-Reminder: Loan ID 205 for customer Sita is due on 20-JUL-2025
+Reminder: John Doe's loan is due in 30 days on 2029-06-29
