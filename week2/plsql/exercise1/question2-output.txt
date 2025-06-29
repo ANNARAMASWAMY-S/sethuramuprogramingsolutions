@@ -1,4 +1,2 @@
-VIP status updated for Customer ID: 105  
-VIP status updated for Customer ID: 122  
-
-PL/SQL procedure successfully completed.
+Customer ID 1 not eligible for VIP.
+Customer ID 2 not eligible for VIP.
