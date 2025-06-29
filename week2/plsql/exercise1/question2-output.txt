@@ -1,0 +1,4 @@
+VIP status updated for Customer ID: 105  
+VIP status updated for Customer ID: 122  
+
+PL/SQL procedure successfully completed.
