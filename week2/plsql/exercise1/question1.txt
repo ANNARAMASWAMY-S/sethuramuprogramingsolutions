@@ -1,16 +1,21 @@
-CREATE OR REPLACE PROCEDURE ProcessMonthlyInterest IS
-BEGIN
-    FOR acc IN (
-        SELECT AccountID, Balance
-        FROM Accounts
-        WHERE AccountType = 'Savings'
-    ) LOOP
-        UPDATE Accounts
-        SET Balance = Balance + (Balance * 0.01),
-            LastModified = SYSDATE
-        WHERE AccountID = acc.AccountID;
+SET SERVEROUTPUT ON;
 
-        DBMS_OUTPUT.PUT_LINE('1% interest applied to Account ID: ' || acc.AccountID);
+DECLARE
+    v_customer_id Customers.CustomerID%TYPE;
+    v_dob Customers.DOB%TYPE;
+    v_age NUMBER;
+BEGIN
+    FOR customer_rec IN (SELECT CustomerID, DOB FROM Customers) LOOP
+        v_customer_id := customer_rec.CustomerID;
+        v_dob := customer_rec.DOB;
+        v_age := FLOOR(MONTHS_BETWEEN(SYSDATE, v_dob) / 12);
+
+        IF v_age > 60 THEN
+            UPDATE Loans
+            SET InterestRate = InterestRate - 1
+            WHERE CustomerID = v_customer_id;
+
+            DBMS_OUTPUT.PUT_LINE('Applied 1% discount for Customer ID: ' || v_customer_id);
+        END IF;
     END LOOP;
 END;
-/
