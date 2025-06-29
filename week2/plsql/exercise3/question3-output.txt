@@ -1,17 +1,1 @@
-SET SERVEROUTPUT ON;
-EXEC TransferFunds(101, 102, 500);
-
-If balance is sufficient:
-
-
-
-Transfer successful: 500 transferred from Account 101 to Account 102  
-PL/SQL procedure successfully completed.
-
- If balance is low:
-
-
-
-
-Transfer failed: Insufficient balance.  
-PL/SQL procedure successfully completed.
+Transferred 500 from Account ID 1 to Account ID 2
