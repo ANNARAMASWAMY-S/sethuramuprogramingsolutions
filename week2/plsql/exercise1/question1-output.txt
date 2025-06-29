@@ -1,5 +1,1 @@
-SET SERVEROUTPUT ON;
-EXEC ProcessMonthlyInterest;
-
-1% interest applied to Account ID: 1
-PL/SQL procedure successfully completed.
+Applied 1% discount for Customer ID: 1
