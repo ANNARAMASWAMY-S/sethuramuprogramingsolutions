@@ -1,18 +1,24 @@
-CREATE OR REPLACE PROCEDURE UpdateEmployeeBonus (
-    deptName IN VARCHAR2,
-    bonusPercent IN NUMBER
-) IS
-BEGIN
-    FOR emp IN (
-        SELECT EmployeeID, Salary
-        FROM Employees
-        WHERE Department = deptName
-    ) LOOP
-        UPDATE Employees
-        SET Salary = Salary + (Salary * bonusPercent / 100)
-        WHERE EmployeeID = emp.EmployeeID;
+ALTER TABLE Customers ADD IsVIP VARCHAR2(5); -- 'TRUE' or 'FALSE'
 
-        DBMS_OUTPUT.PUT_LINE('Bonus applied to Employee ID: ' || emp.EmployeeID);
+SET SERVEROUTPUT ON;
+
+DECLARE
+    v_customer_id Customers.CustomerID%TYPE;
+    v_balance Customers.Balance%TYPE;
+BEGIN
+    FOR cust IN (SELECT CustomerID, Balance FROM Customers) LOOP
+        IF cust.Balance > 10000 THEN
+            UPDATE Customers
+            SET IsVIP = 'TRUE'
+            WHERE CustomerID = cust.CustomerID;
+
+            DBMS_OUTPUT.PUT_LINE('Customer ID ' || cust.CustomerID || ' promoted to VIP.');
+        ELSE
+            UPDATE Customers
+            SET IsVIP = 'FALSE'
+            WHERE CustomerID = cust.CustomerID;
+
+            DBMS_OUTPUT.PUT_LINE('Customer ID ' || cust.CustomerID || ' not eligible for VIP.');
+        END IF;
     END LOOP;
 END;
-/
