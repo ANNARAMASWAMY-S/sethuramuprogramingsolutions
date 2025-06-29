@@ -1,0 +1,4 @@
+Discount applied for Customer ID: 101  
+Discount applied for Customer ID: 108  
+
+PL/SQL procedure successfully completed.
