@@ -1,18 +1,27 @@
-CREATE OR REPLACE PROCEDURE UpdateEmployeeBonus (
-    deptId IN NUMBER,
-    bonusPercent IN NUMBER
+CREATE OR REPLACE PROCEDURE UpdateEmployeeBonus(
+    p_department IN Employees.Department%TYPE,
+    p_bonus_percent IN NUMBER
 ) IS
+    v_bonus NUMBER;
 BEGIN
-    FOR emp IN (
-        SELECT EmployeeID, Salary
-        FROM Employees
-        WHERE DepartmentID = deptId
+    FOR emp_rec IN (
+        SELECT EmployeeID, Salary 
+        FROM Employees 
+        WHERE Department = p_department
     ) LOOP
-        UPDATE Employees
-        SET Salary = Salary + (Salary * bonusPercent / 100)
-        WHERE EmployeeID = emp.EmployeeID;
+        v_bonus := emp_rec.Salary * (p_bonus_percent / 100);
 
-        DBMS_OUTPUT.PUT_LINE('Bonus applied to Employee ID: ' || emp.EmployeeID);
+        UPDATE Employees
+        SET Salary = Salary + v_bonus
+        WHERE EmployeeID = emp_rec.EmployeeID;
+
+        DBMS_OUTPUT.PUT_LINE('Added bonus of ' || v_bonus || 
+                             ' to Employee ID: ' || emp_rec.EmployeeID);
     END LOOP;
 END;
 /
+
+
+BEGIN
+    UpdateEmployeeBonus('IT', 10); -- Adds 10% bonus to IT dept
+END;
