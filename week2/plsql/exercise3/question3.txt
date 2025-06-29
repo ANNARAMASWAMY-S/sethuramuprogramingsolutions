@@ -1,20 +1,43 @@
-CREATE OR REPLACE PROCEDURE TransferFunds (
-    fromAccId IN NUMBER,
-    toAccId IN NUMBER,
-    amount IN NUMBER
+CREATE OR REPLACE PROCEDURE TransferFunds(
+    p_from_account IN Accounts.AccountID%TYPE,
+    p_to_account IN Accounts.AccountID%TYPE,
+    p_amount IN NUMBER
 ) IS
-    fromBalance NUMBER;
+    v_from_balance Accounts.Balance%TYPE;
+    v_to_balance Accounts.Balance%TYPE;
 BEGIN
-    SELECT Balance INTO fromBalance FROM Accounts WHERE AccountID = fromAccId;
+    -- Get balances
+    SELECT Balance INTO v_from_balance FROM Accounts WHERE AccountID = p_from_account FOR UPDATE;
+    SELECT Balance INTO v_to_balance FROM Accounts WHERE AccountID = p_to_account FOR UPDATE;
 
-    IF fromBalance < amount THEN
-        DBMS_OUTPUT.PUT_LINE('Transfer failed: Insufficient balance.');
+    IF v_from_balance < p_amount THEN
+        DBMS_OUTPUT.PUT_LINE('Transfer failed: Insufficient balance in Account ID ' || p_from_account);
     ELSE
-        UPDATE Accounts SET Balance = Balance - amount WHERE AccountID = fromAccId;
+        -- Deduct from source
+        UPDATE Accounts
+        SET Balance = Balance - p_amount,
+            LastModified = SYSDATE
+        WHERE AccountID = p_from_account;
 
-        UPDATE Accounts SET Balance = Balance + amount WHERE AccountID = toAccId;
+        -- Add to destination
+        UPDATE Accounts
+        SET Balance = Balance + p_amount,
+            LastModified = SYSDATE
+        WHERE AccountID = p_to_account;
 
-        DBMS_OUTPUT.PUT_LINE('Transfer successful: ' || amount || ' transferred from Account ' || fromAccId || ' to Account ' || toAccId);
+        DBMS_OUTPUT.PUT_LINE('Transferred ' || p_amount || 
+                             ' from Account ID ' || p_from_account || 
+                             ' to Account ID ' || p_to_account);
     END IF;
+EXCEPTION
+    WHEN NO_DATA_FOUND THEN
+        DBMS_OUTPUT.PUT_LINE('One or both account IDs not found.');
+    WHEN OTHERS THEN
+        DBMS_OUTPUT.PUT_LINE('Unexpected error: ' || SQLERRM);
 END;
 /
+
+
+BEGIN
+    TransferFunds(1, 2, 500);
+END;
