@@ -1,7 +1,1 @@
-SET SERVEROUTPUT ON;
-EXEC UpdateEmployeeBonus(10, 5);  -- Department 10, 5% bonus
-
-
-Bonus applied to Employee ID: 201  
-Bonus applied to Employee ID: 204  
-PL/SQL procedure successfully completed.
+Added bonus of 6000 to Employee ID: 2
