@@ -1,0 +1,20 @@
+CREATE OR REPLACE PROCEDURE TransferFunds (
+    fromAccId IN NUMBER,
+    toAccId IN NUMBER,
+    amount IN NUMBER
+) IS
+    fromBalance NUMBER;
+BEGIN
+    SELECT Balance INTO fromBalance FROM Accounts WHERE AccountID = fromAccId;
+
+    IF fromBalance < amount THEN
+        DBMS_OUTPUT.PUT_LINE('Transfer failed: Insufficient balance.');
+    ELSE
+        UPDATE Accounts SET Balance = Balance - amount WHERE AccountID = fromAccId;
+
+        UPDATE Accounts SET Balance = Balance + amount WHERE AccountID = toAccId;
+
+        DBMS_OUTPUT.PUT_LINE('Transfer successful: ' || amount || ' transferred from Account ' || fromAccId || ' to Account ' || toAccId);
+    END IF;
+END;
+/
