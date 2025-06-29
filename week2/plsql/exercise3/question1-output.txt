@@ -1,0 +1,7 @@
+SET SERVEROUTPUT ON;
+EXEC ProcessMonthlyInterest;
+
+
+Interest applied to Account ID: 101  
+Interest applied to Account ID: 105  
+PL/SQL procedure successfully completed.
