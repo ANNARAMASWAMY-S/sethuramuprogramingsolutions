@@ -32,6 +32,13 @@ public class BookService
 		this.name = name;
 	}
 
+
+	public BookService(int id) {
+    System.out.println("Setting up............");
+		this.id = id;
+	}
+
+
 	
 	
 	
