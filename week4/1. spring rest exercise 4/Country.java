@@ -7,6 +7,7 @@ public class Country
 	public Country() {}
 	
 	public Country(String code, String name) {
+		System.out.println("Setting up .......");
 		this.code = code;
 		this.name = name;
 	}
