@@ -1,0 +1,14 @@
+
+<beans>
+
+    <bean id="beandemo" class="com.Country">
+        <property name="code" value="IN" />
+        <property name="name" value="INDIA"></property>
+    </bean>
+    
+    <bean id="myBean" class="com.Country">
+        <constructor-arg name="code" value="US"/> 
+        <constructor-arg name="name" value="USA"/>
+    </bean>
+
+</beans>
