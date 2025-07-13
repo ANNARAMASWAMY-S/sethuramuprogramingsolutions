@@ -16,7 +16,7 @@ public class CountryController
 	 String Beans[]=context.getBeanDefinitionNames();
 	
 	@GetMapping
-	public Country getCountry()
+	public Country getCountryIndia()
 	{
 		Country c1=(Country) context.getBean("beandemo");
 		for(int i=0;i<Beans.length;i++)
