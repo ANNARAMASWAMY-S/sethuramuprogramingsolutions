@@ -1,10 +1,11 @@
 import React from 'react';
 
-function Home()
+class Home extends React.Component
 {
-    return(
+    render(){
+        return(
         <>
             <h3 style={{textAlign:'center'}}>Welcome to the home page of the student Management portal</h3>
-        </>
-    );
+        </>);
+    }
 }
