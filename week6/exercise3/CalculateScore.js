@@ -1,5 +1,5 @@
 import React from 'react';
-import './mystyle.css';
+import '../StyleSheets/mystyle.css';
 const  percentToDecimal = (decimal)=>{
     return(decimal.toFixed(2)+'%');
 }
