@@ -1,0 +1,50 @@
+h1,h3{
+    text-align: center;
+}
+
+#studentdetails{
+    color: maroon;
+}
+
+
+#name{
+    color:blue;
+}
+
+#name span{
+    color:blue;
+    font-weight: 300;
+}
+
+#school{
+    color: crimson;
+}
+
+#school span{
+    color:crimson;
+    font-weight: 300;
+}
+
+
+#total{
+    color: darkmagenta;
+}
+
+#total span{
+    color:darkmagenta;
+    font-weight: 300;
+}
+
+
+
+
+#score{
+    color:forestgreen;
+}
+
+#score span{
+    color:forestgreen;
+    font-weight: 300;
+}
+
+
